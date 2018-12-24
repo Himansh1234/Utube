@@ -35,9 +35,9 @@ import androidx.appcompat.app.AppCompatActivity;
     public void Sumbit(View view) {
 
         String Id = channelID.getText().toString().trim();
-        Intent intent = new Intent(MyVideos.this,Recycler_channelList.class);
-        intent.putExtra(Id,"ChannelId");
-        startActivity(intent);
+   //     Intent intent = new Intent(MyVideos.this,Recycler_channelList.class);
+       // intent.putExtra(Id,"ChannelId");
+        //startActivity(intent);
 
 
     }
