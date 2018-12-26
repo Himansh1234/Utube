@@ -7,6 +7,9 @@
         <item
             android:id="@+id/myvideos"
             android:title="MyVideos" />
+        <item
+            android:id="@+id/profile"
+            android:title="MyProfile"/>
     </group>
 
 </menu>

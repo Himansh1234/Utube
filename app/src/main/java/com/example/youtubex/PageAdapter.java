@@ -8,7 +8,7 @@ public class PageAdapter extends FragmentStatePagerAdapter {
 
     int tabno;
 
-    public PageAdapter (FragmentManager fm,int tabno)
+    public PageAdapter (FragmentManager fm, int tabno)
     {
         super(fm);
         this.tabno=tabno;

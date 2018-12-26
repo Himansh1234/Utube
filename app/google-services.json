@@ -59,11 +59,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "289502343810-ma03ki8uijoims3e78dl7jg9td8pu5nh.apps.googleusercontent.com",
+          "client_id": "289502343810-8mcd6v1h2jrusjrvr8qnlj9i9btd4oc2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.youtubex",
-            "certificate_hash": "4827b77cdaa06f3ade3232ffac2625b3e366c4a7"
+            "certificate_hash": "9539ebaddfd0d28085a6d086c919e12458807e93"
           }
         },
         {

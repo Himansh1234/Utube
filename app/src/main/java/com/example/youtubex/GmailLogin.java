@@ -126,4 +126,3 @@ public class GmailLogin extends AppCompatActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 }
-

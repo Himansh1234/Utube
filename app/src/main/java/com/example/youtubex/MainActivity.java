@@ -6,13 +6,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity
         , Likes.OnFragmentInteractionListener
         , Suscribes.OnFragmentInteractionListener {
 
+    ImageView ProfilePic;
+    TextView Name, Email;
     FirebaseAuth mAuth;
 
 
@@ -36,19 +40,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        // setSupportActionBar(toolbar);
-
+        //    setSupportActionBar(toolbar);
 
         mAuth = FirebaseAuth.getInstance();
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -59,8 +54,19 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View header=navigationView.getHeaderView(0);
+        View view=navigationView.inflateHeaderView(R.layout.nav_header_main);
+        ProfilePic =  header.findViewById(R.id.imageView);
+        Name = header.findViewById(R.id.UserName);
+        Email = header.findViewById(R.id.UserEmail);
 
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////TAB VIEW
+
+        FirebaseUser user = mAuth.getCurrentUser();
+        String profilePicUrl = user.getPhotoUrl().toString();
+        Glide.with(this).load(profilePicUrl).into(ProfilePic);
+        Name.setText(user.getDisplayName());
+        Email.setText(user.getEmail());
+
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Views"));
@@ -114,6 +120,7 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
@@ -127,6 +134,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
 
         if (id == R.id.myvideos) {
             Intent intent = new Intent(this, MyVideos.class);
@@ -144,9 +152,12 @@ public class MainActivity extends AppCompatActivity
         if (mAuth.getCurrentUser() == null) {
             startActivity(new Intent(this, MainActivity.class));
         }
-        else
-        {
-            Toast.makeText(this,"welcome"+mAuth.getCurrentUser(),Toast.LENGTH_LONG);
+        else {
+
+            Toast.makeText(this, "welcome" + mAuth.getCurrentUser(), Toast.LENGTH_LONG);
+
+
+
         }
 
     }
