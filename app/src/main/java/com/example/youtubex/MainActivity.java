@@ -15,8 +15,14 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -32,8 +38,9 @@ public class MainActivity extends AppCompatActivity
 
     ImageView ProfilePic;
     TextView Name, Email;
+    static  TextView coin;
     FirebaseAuth mAuth;
-
+   public static FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +66,11 @@ public class MainActivity extends AppCompatActivity
         ProfilePic =  header.findViewById(R.id.imageView);
         Name = header.findViewById(R.id.UserName);
         Email = header.findViewById(R.id.UserEmail);
+        coin = header.findViewById(R.id.coin);
+        setcoin();
 
 
-        FirebaseUser user = mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
         String profilePicUrl = user.getPhotoUrl().toString();
         Glide.with(this).load(profilePicUrl).into(ProfilePic);
         Name.setText(user.getDisplayName());
@@ -71,7 +80,7 @@ public class MainActivity extends AppCompatActivity
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Views"));
         tabLayout.addTab(tabLayout.newTab().setText("Likes"));
-        tabLayout.addTab(tabLayout.newTab().setText("Suscribes"));
+        tabLayout.addTab(tabLayout.newTab().setText("Subscribes"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = findViewById(R.id.viewPager);
@@ -140,6 +149,13 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, MyVideos.class);
             startActivity(intent);
         }
+
+        if(id == R.id.profile){
+            Intent intent = new Intent(this, AddChannel.class);
+            intent.putExtra("userName",user.getDisplayName());
+            intent.putExtra("url",user.getPhotoUrl());
+            startActivity(intent);
+        }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -167,5 +183,40 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+void setcoin(){
+    final String[] coin1 = new String[1];
 
+    mAuth = FirebaseAuth.getInstance();
+
+    FirebaseUser user = mAuth.getCurrentUser();
+    final DatabaseReference dataref = FirebaseDatabase.getInstance().getReference().child("UserData").child(user.getUid());
+    dataref.addChildEventListener(new ChildEventListener() {
+        @Override
+        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+           coin1[0] = dataSnapshot.getValue(String.class);
+
+            coin.setText("Coin:"+coin1[0]);
+
+        }
+
+        @Override
+        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+        }
+
+        @Override
+        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+        }
+
+        @Override
+        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    });
+}
 }

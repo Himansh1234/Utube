@@ -54,6 +54,7 @@ public class Views extends Fragment {
 
 
     ArrayList<VideoDetails> ArrayVideoList;
+    ArrayList<String> viewHistory;
     String videoID,videoName="",videodec="";
     RecyclerView lvVideo;
    VideoListAdapter_Database videoListAdapter_database;
@@ -86,12 +87,7 @@ public class Views extends Fragment {
         }
 
         ArrayVideoList= new ArrayList<>();
-
-
-
-
-
-
+        viewHistory = new ArrayList<>();
 
 
     }
@@ -100,7 +96,8 @@ public class Views extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+        getDataFromFirebase();
+        getHistory();
 
         return inflater.inflate(R.layout.fragment_views, container, false);
 
@@ -114,9 +111,9 @@ public class Views extends Fragment {
 
         /////////////////////////////////////////////////////////////////    FIREBASE RETRIVE
         lvVideo=  getActivity().findViewById(R.id.view_videoList);
-        getDataFromFirebase();
+
         lvVideo.setLayoutManager(new LinearLayoutManager(getActivity()));
-        videoListAdapter_database = new VideoListAdapter_Database(lvVideo, getContext(), new ArrayList<VideoDetails>());
+        videoListAdapter_database = new VideoListAdapter_Database(lvVideo, getContext(), new ArrayList<VideoDetails>(),new ArrayList<String>());
         lvVideo.setAdapter(videoListAdapter_database);
 
     }
@@ -178,6 +175,7 @@ public class Views extends Fragment {
                final String videoID = dataSnapshot.getKey();
                final  String videoName = dataSnapshot.child("name").getValue(String.class);
                final String videodec = dataSnapshot.child("description").getValue(String.class);
+               final  String imageurl = dataSnapshot.child("url").getValue(String.class);
 
                 String url = "https://www.googleapis.com/youtube/v3/videos?part=statistics&id="+videoID+"&key=AIzaSyC1zuY8lLZ3xDjGvrbN7SNcWEJxJEE1YiI";
 
@@ -206,7 +204,9 @@ public class Views extends Fragment {
                             videoDetails.setVideoId(videoID);
                             videoDetails.setVideoName(videoName);
                             videoDetails.setVideoDesc(videodec);
+                            videoDetails.setURL(imageurl);
 
+                            if(videodec!=null && videoID!=null && videoName !=null && imageurl!=null)
                             ((VideoListAdapter_Database) lvVideo.getAdapter()).update(videoDetails);
 
 
@@ -248,6 +248,8 @@ public class Views extends Fragment {
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+                videoListAdapter_database.notifyDataSetChanged();
+
             }
 
             @Override
@@ -266,5 +268,37 @@ public class Views extends Fragment {
             }
         });
 
+    }
+
+    void getHistory(){
+
+        final DatabaseReference dataref1 = FirebaseDatabase.getInstance().getReference().child("User").child(MainActivity.user.getUid()).child("Views");
+        dataref1.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                ((VideoListAdapter_Database) lvVideo.getAdapter()).updateHistory(dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

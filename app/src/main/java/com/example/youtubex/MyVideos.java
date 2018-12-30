@@ -39,7 +39,7 @@ public class MyVideos  extends AppCompatActivity {
            @Override
            public void onClick(View v) {
                Intent i = new Intent(MyVideos.this,MyVideosList.class);
-               i.putExtra("Channel_ID",channel.getText().toString());
+               i.putExtra("Channel_ID",channel.getText().toString().substring(channel.getText().toString().lastIndexOf('/')+1));
                startActivity(i);
            }
        });

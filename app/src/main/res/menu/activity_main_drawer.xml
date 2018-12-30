@@ -9,7 +9,7 @@
             android:title="MyVideos" />
         <item
             android:id="@+id/profile"
-            android:title="MyProfile"/>
+            android:title="ADD CHANNEL"/>
     </group>
 
 </menu>

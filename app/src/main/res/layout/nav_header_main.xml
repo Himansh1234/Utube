@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@drawable/side_nav_bar"
     android:orientation="vertical"
     android:paddingTop="25dp"
     style="@style/Theme.Design.NoActionBar"
+    android:gravity="center_vertical"
     >
 
     <ImageView
@@ -22,9 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="@string/nav_header_title"
-        android:textSize="15sp"
-        />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/UserEmail"
@@ -33,5 +32,11 @@
         android:textSize="15sp"
 
         />
+
+    <TextView
+        android:id="@+id/coin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
 
 </LinearLayout>

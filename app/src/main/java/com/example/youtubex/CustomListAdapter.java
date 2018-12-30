@@ -7,11 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -86,7 +88,7 @@ public class CustomListAdapter extends BaseAdapter {
 
         }
 
-        NetworkImageView networkImageView = (NetworkImageView) convertView.findViewById(R.id.video_image);
+        final ImageView videopic = convertView.findViewById(R.id.video_image_item);
 
         final TextView imgtitle = (TextView) convertView.findViewById(R.id.video_title);
 
@@ -110,6 +112,8 @@ public class CustomListAdapter extends BaseAdapter {
                 intent.putExtra("videoId",tvVideoID.getText().toString());
                 intent.putExtra("videoName",imgtitle.getText().toString());
                 intent.putExtra("videodec",singleton.getVideoDesc());
+                intent.putExtra("videourl",singleton.getURL());
+
 
                 finalConvertView.getContext().startActivity(intent);
                 activity.finish();
@@ -122,19 +126,14 @@ public class CustomListAdapter extends BaseAdapter {
 
 
 
-        Toast.makeText(convertView.getContext(),"CUST",Toast.LENGTH_SHORT).show();
-
-
-
         VideoDetails singleton = (VideoDetails) this.singletons.get(i);
-
-//        networkImageView.setImageUrl(singleton.getURL(), this.imageLoader);
 
         tvVideoID.setText(singleton.getVideoId());
 
         imgtitle.setText(singleton.getVideoName());
 
-        //imgdesc.setText(singleton.getVideoDesc());
+        Glide.with(convertView.getContext()).load(singleton.getURL()).into(videopic);
+
 
         return convertView;
 

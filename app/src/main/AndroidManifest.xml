@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Add_To_Database"></activity>
+        <activity android:name=".WebPage"></activity>
+        <activity android:name=".AddChannel" />
+        <activity android:name=".Suscribe" />
+        <activity android:name=".Add_To_Database" />
         <activity android:name=".MyVideosList" />
         <activity android:name=".GmailLogin">
             <intent-filter>
