@@ -110,7 +110,7 @@ public class Views extends Fragment {
 
 
         /////////////////////////////////////////////////////////////////    FIREBASE RETRIVE
-        lvVideo=  getActivity().findViewById(R.id.view_videoList);
+        lvVideo=  getActivity().findViewById(R.id.Views_videolist);
 
         lvVideo.setLayoutManager(new LinearLayoutManager(getActivity()));
         videoListAdapter_database = new VideoListAdapter_Database(lvVideo, getContext(), new ArrayList<VideoDetails>(),new ArrayList<String>());
