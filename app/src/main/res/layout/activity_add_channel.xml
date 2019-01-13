@@ -1,27 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/add_channel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center">
 
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ADD CHANNEL"
+        android:textColor="#ff0000"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="25dp"
+        android:textSize="40dp"
+        />
 
     <EditText
         android:id="@+id/channelId"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="384dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="247dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/corner"
         android:gravity="center"
-        android:hint="Enter your channel ID here"
+        android:hint="Enter Your Channel ID Here"
         android:textSize="20sp" />
 
     <Button
         android:id="@+id/Sumbit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_width="305dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="140dp"
+        android:background="@drawable/button_press"
         android:onClick="Sumbit"
-        android:text="SUMBIT" />
+        android:text="SUMBIT"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textSize="24sp"
+         />
 
 
 </LinearLayout>

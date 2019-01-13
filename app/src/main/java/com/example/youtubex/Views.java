@@ -181,67 +181,68 @@ public class Views extends Fragment {
 
 
 
-                RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
+                if(getActivity()!= null) {
+                    RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
 
-                StringRequest stringRequest=new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                    StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
 
-                    @Override
+                        @Override
 
-                    public void onResponse(String response) {
+                        public void onResponse(String response) {
 
-                        try {
+                            try {
 
-                            JSONObject jsonObject=new JSONObject(response);
+                                JSONObject jsonObject = new JSONObject(response);
 
-                            JSONArray jsonArray=jsonObject.getJSONArray("items");
-                            JSONObject jsonitem = jsonArray.getJSONObject(0);
+                                JSONArray jsonArray = jsonObject.getJSONArray("items");
+                                JSONObject jsonitem = jsonArray.getJSONObject(0);
 
-                            JSONObject jsonObjectstata = jsonitem.getJSONObject("statistics");
+                                JSONObject jsonObjectstata = jsonitem.getJSONObject("statistics");
 
-                            VideoDetails videoDetails=new VideoDetails();
+                                VideoDetails videoDetails = new VideoDetails();
 
-                            videoDetails.setViewsCount(jsonObjectstata.getString("viewCount")+"");
-                            videoDetails.setVideoId(videoID);
-                            videoDetails.setVideoName(videoName);
-                            videoDetails.setVideoDesc(videodec);
-                            videoDetails.setURL(imageurl);
+                                videoDetails.setViewsCount(jsonObjectstata.getString("viewCount") + "");
+                                videoDetails.setVideoId(videoID);
+                                videoDetails.setVideoName(videoName);
+                                videoDetails.setVideoDesc(videodec);
+                                videoDetails.setURL(imageurl);
 
-                            if(videodec!=null && videoID!=null && videoName !=null && imageurl!=null)
-                            ((VideoListAdapter_Database) lvVideo.getAdapter()).update(videoDetails);
+                                if (videodec != null && videoID != null && videoName != null && imageurl != null)
+                                    ((VideoListAdapter_Database) lvVideo.getAdapter()).update(videoDetails);
 
 
+                            } catch (JSONException e) {
 
-                        } catch (JSONException e) {
+                                e.printStackTrace();
 
-                            e.printStackTrace();
+                            }
+
 
                         }
 
+                    }, new Response.ErrorListener() {
 
+                        @Override
 
-                    }
+                        public void onErrorResponse(VolleyError error) {
 
-                }, new Response.ErrorListener() {
+                            error.printStackTrace();
 
-                    @Override
+                        }
 
-                    public void onErrorResponse(VolleyError error) {
+                    });
 
-                        error.printStackTrace();
+                    int socketTimeout = 30000;
 
-                    }
+                    RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
-                });
+                    stringRequest.setRetryPolicy(policy);
 
-                int socketTimeout = 30000;
+                    requestQueue.add(stringRequest);
 
-                RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-
-                stringRequest.setRetryPolicy(policy);
-
-                requestQueue.add(stringRequest);
-
-
+                }
+                else {
+                }
 
             }
 
@@ -267,6 +268,7 @@ public class Views extends Fragment {
 
             }
         });
+
 
     }
 

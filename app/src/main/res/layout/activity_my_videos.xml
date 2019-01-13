@@ -1,27 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/youtube_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center">
 
-
-    <EditText
-        android:id="@+id/channelId"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="ADD VIDEO"
+        android:textColor="#ff0000"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="25dp"
+        android:textSize="40dp"
+        />
+    <EditText
+        android:id="@+id/channelId"
+        android:layout_width="389dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="196dp"
+        android:layout_marginBottom="38dp"
+
         android:gravity="center"
         android:hint="Enter your channel ID here"
-        android:textSize="20sp" />
+        android:selectAllOnFocus="false"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="italic" />
 
     <Button
         android:id="@+id/Sumbit"
-        android:layout_width="wrap_content"
+        android:layout_width="351dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="124dp"
+        android:background="@drawable/button_press"
         android:onClick="Sumbit"
-        android:text="SUMBIT" />
+        android:text="SUBMIT"
+        android:textColor="#ffff"
+        android:textSize="24dp"
+         />
 
 
 </LinearLayout>

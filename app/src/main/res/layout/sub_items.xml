@@ -42,29 +42,25 @@
                 app:fontFamily="sans-serif-smallcaps" />
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/viewsCount"
-                    android:layout_width="230dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:paddingHorizontal="10dp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Coin : 1"/>
-
                 <ImageButton
                     android:id="@+id/subButton"
-                    android:layout_width="20dp"
+                    android:layout_width="50dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="10"
+                    android:layout_weight="1"
                     app:srcCompat="@drawable/ic_add_box_black_24dp"
                     tools:ignore="VectorDrawableCompat" />
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent"
+                    android:text="Coin : 1"/>
+
 
             </LinearLayout>
         </LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.youtubex;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,12 +30,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-
 public class GmailLogin extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 7;
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
+    ProgressDialog mProgress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +48,16 @@ public class GmailLogin extends AppCompatActivity {
         signInButton.setSize(SignInButton.SIZE_STANDARD);
 
 
+        mProgress = new ProgressDialog(this);
+
+        String titleId="Signing in...";
+        mProgress.setTitle(titleId);
+        mProgress.setMessage("Please Wait...");
+
         findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mProgress.show();
                 switch (v.getId()) {
                     case R.id.sign_in_button:
                         signIn();
@@ -114,6 +123,7 @@ public class GmailLogin extends AppCompatActivity {
 
                             final FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(GmailLogin.this, "Sign in Success", Toast.LENGTH_LONG).show();
+                            mProgress.dismiss();
 
 
                             final DatabaseReference dataref = FirebaseDatabase.getInstance().getReference().child("UserData");
@@ -151,6 +161,7 @@ public class GmailLogin extends AppCompatActivity {
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
+                            mProgress.dismiss();
                             Toast.makeText(GmailLogin.this, "Sign in Failed", Toast.LENGTH_LONG).show();
                         }
                     }

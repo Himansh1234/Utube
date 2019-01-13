@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".WebPage"
     android:orientation="vertical"
-    android:padding="15dp"
-    >
+    android:padding="15dp">
 
     <WebView
         android:id="@+id/webView"
@@ -17,13 +16,20 @@
 
     <Button
         android:id="@+id/back"
-        android:layout_width="match_parent"
+        android:layout_width="100dp"
         android:layout_height="50dp"
-        android:text="GO BACK" />
+        android:layout_marginTop="5dp"
+        android:background="@android:color/darker_gray"
+        android:text="GO BACK"
+        android:layout_gravity="center"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:text=""
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textColor="@android:color/background_dark"/>
 </LinearLayout>

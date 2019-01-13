@@ -134,6 +134,7 @@ public class ListAdapterForLikes extends RecyclerView.Adapter<ListAdapterForLike
                     database = FirebaseDatabase.getInstance();
                      myRef = database.getReference("UserData").child(MainActivity.user.getUid());
                     myRef.child("Coin").setValue(Coin + "");
+                    MainActivity.coin.setText("Coin : " + Coin);
 
                 }
                 else{

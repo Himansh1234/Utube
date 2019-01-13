@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         View header=navigationView.getHeaderView(0);
-        View view=navigationView.inflateHeaderView(R.layout.nav_header_main);
         ProfilePic =  header.findViewById(R.id.imageView);
         Name = header.findViewById(R.id.UserName);
         Email = header.findViewById(R.id.UserEmail);
@@ -75,7 +74,6 @@ public class MainActivity extends AppCompatActivity
         Glide.with(this).load(profilePicUrl).into(ProfilePic);
         Name.setText(user.getDisplayName());
         Email.setText(user.getEmail());
-
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText("Views"));
@@ -132,6 +130,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            mAuth.signOut();
+            finish();
             return true;
         }
 
